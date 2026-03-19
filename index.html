@@ -58,7 +58,7 @@
         Link to
         <a href="https://www.google.com/" rel="noopener">Google</a>
         and
-        <a href="https://securly.com/" rel="noopener">securly</a>
+        <a href="https://securly.com/" rel="noopener" data-block-securly="true">securly</a>
         .
       </p>
 
@@ -66,14 +66,23 @@
         <button id="installBtn" class="hidden" type="button">Install app</button>
         <div id="status" class="status"></div>
       </div>
+      
+      <div id="blockedNotice" class="status hidden"></div>
     </div>
 
     <script>
       const statusEl = document.getElementById('status');
       const installBtn = document.getElementById('installBtn');
+      const blockedNoticeEl = document.getElementById('blockedNotice');
 
       function setStatus(msg) {
         statusEl.textContent = msg;
+      }
+
+      function showRedirectBlocked() {
+        setStatus('Redirect blocked from securly.com.');
+        blockedNoticeEl.textContent = 'Redirect blocked from securly.com.';
+        blockedNoticeEl.classList.remove('hidden');
       }
 
       async function registerSW() {
@@ -120,6 +129,15 @@
       // Hide the button if we're already installed.
       if (isStandalone()) {
         setStatus('App is already installed (standalone mode).');
+      }
+
+      // Deterministic test: clicking the securly link shows "Redirect blocked" instead of navigating.
+      const securlyLink = document.querySelector('a[data-block-securly="true"]');
+      if (securlyLink) {
+        securlyLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          showRedirectBlocked();
+        });
       }
 
       registerSW();
