@@ -41,15 +41,15 @@ function isSecurlyUrl(url) {
 }
 
 function blockedResponseForNavigation() {
-  const body = `<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Blocked</title></head><body style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#0b1220;color:#e5e7eb;padding:24px;">
-    <h1 style="margin-top:0">Blocked</h1>
+  const body = `<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Redirect blocked</title></head><body style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#0b1220;color:#e5e7eb;padding:24px;">
+    <h1 style="margin-top:0">Redirect blocked</h1>
     <p>Redirects involving <code>${SECURLY}</code> are blocked.</p>
     </body></html>`;
   return new Response(body, { status: 403, headers: { 'content-type': 'text/html; charset=utf-8' } });
 }
 
 function blockedResponseGeneric() {
-  return new Response(`Blocked: redirects involving "${SECURLY}"`, {
+  return new Response(`Redirect blocked: redirects involving "${SECURLY}"`, {
     status: 403,
     headers: { 'content-type': 'text/plain; charset=utf-8' }
   });
