@@ -13,6 +13,10 @@
     {
       "type": "origin",
       "origin": "https://www.google.com"
+    },
+    {
+      "type": "origin",
+      "origin": "https://securly.com"
     }
   ],
   "icons": [
